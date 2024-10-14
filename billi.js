@@ -44,7 +44,7 @@ const showAllDetails = (elems) => {
         console.log(elem.personName);
         console.log(name);
         div.innerHTML = `
-            <h1 class="w-full flex justify-start items-center gap-2">${name[0] + ' ' +  (name[0].includes(" ") ? ' ' :  elem.lastName.split(" ")[0] )}<input type="checkbox" checked="checked" class="checkbox" /></h1>
+            <h1 class="w-full flex justify-start items-center gap-2">${name[0] + ' ' +  (name[0].includes(" ") ? ' ' :  elem.lastName.split(" ")[0] )}<input type="checkbox" class="checkbox" /></h1>
             <h1>${elem.countryOfCitizenship}</h1>
             <h1>${elem.industries[0]}</h1>
             <h1>${elem.rank}</h1>
@@ -54,6 +54,8 @@ const showAllDetails = (elems) => {
         detailSection.appendChild(div);
 
     });
+
+    setupCheckboxes();
     
 }
 document.getElementById('calculateWealth').addEventListener('click', ()=> sumAuto(sum));
@@ -93,4 +95,24 @@ const setupPagination = () => {
 
         paginationDiv.appendChild(pageButton);
     }
+}
+
+// Function to handle all checkboxes
+const setupCheckboxes = () => {
+    // Select all checkboxes by class name
+    const checkboxes = document.querySelectorAll('.checkbox');
+
+    // Add event listener to each checkbox
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('click', () => {
+            if (checkbox.checked) {
+                // Show alert when the checkbox is checked
+                console.log("Checkbox is checked!");
+            } else {
+                // If clicked again, uncheck the checkbox
+                checkbox.checked = false;
+                console.log("Checkbox is not checked!");
+            }
+        });
+    });
 }

@@ -4,13 +4,14 @@ let allData = [];
 
 // Fetch data from the API
 const getAllBillionaires = () => {
-    fetch('https://forbes400.onrender.com/api/forbes400/getAllBillionaires')
+    fetch("https://forbes400.onrender.com/api/forbes400/getAllBillionaires")
     .then((res) => res.json())
     .then((data) => {
         allData = data; // Store all data for pagination
         showPage(currentPage);
-        setupPagination();
-    });
+        
+    })
+    .catch(error => console.log(error));
 }
 
 // getAllBillionaires();
@@ -20,19 +21,30 @@ const showPage = (page) => {
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const itemsToShow = allData.slice(startIndex, endIndex);
+    setupPagination();
     showAllDetails(itemsToShow);
 }
-
+let sum ;
 // Display details of the selected items
 const showAllDetails = (elems) => {
     const detailSection = document.getElementById('detailSection');
     detailSection.innerHTML = ''; // Clear previous content
 
+     sum = elems.reduce((curr, pev) =>{
+        console.log(curr)
+        console.log(pev.estWorthPrev)
+        return curr + pev.estWorthPrev;
+        
+    } , 0);
+    
+    console.log(sum);
     elems.forEach((elem) => {
         const div = document.createElement('div');
-        const name = elem.personName.split(" ");
+        const name = !elem.personName.includes("-") ? elem.personName.split(" ") : elem.personName.split("-") ;
+        console.log(elem.personName);
+        console.log(name);
         div.innerHTML = `
-            <h1 class="w-full flex justify-start items-center gap-2">${name[0] + " " + name[1] }<input type="checkbox" checked="checked" class="checkbox" /></h1>
+            <h1 class="w-full flex justify-start items-center gap-2">${name[0] + ' ' +  (name[0].includes(" ") ? ' ' :  elem.lastName.split(" ")[0] )}<input type="checkbox" checked="checked" class="checkbox" /></h1>
             <h1>${elem.countryOfCitizenship}</h1>
             <h1>${elem.industries[0]}</h1>
             <h1>${elem.rank}</h1>
@@ -40,7 +52,26 @@ const showAllDetails = (elems) => {
         `;
         div.classList = "w-full grid grid-cols-5 py-2";
         detailSection.appendChild(div);
+
     });
+    
+}
+document.getElementById('calculateWealth').addEventListener('click', ()=> sumAuto(sum));
+// net wealth
+function sumAuto(sum){
+
+    const sumSection = document.getElementById('sumSection');
+    sumSection.innerText = " ";
+    const divv = document.createElement('div');
+    divv.innerHTML = `
+
+        <h1 class = "col-span-4 text-left">Total Net Wealth:</h1>
+        <h1 class = "text-left">${sum.toFixed(3)}$</h1>
+
+    `;
+    divv.classList = "w-full grid grid-cols-5 py-2 items-center text-bold text-xl";
+    sumSection.appendChild(divv);
+
 }
 
 // Setup pagination controls
@@ -57,6 +88,7 @@ const setupPagination = () => {
         pageButton.addEventListener('click', () => {
             currentPage = i;
             showPage(currentPage);
+            sumAuto(sum);
         });
 
         paginationDiv.appendChild(pageButton);

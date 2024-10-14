@@ -38,10 +38,10 @@
     <main class="font-interFont w-full">
         <div class="w-full flex justify-between">
             <!-- left -->
-            <div class="w-[20%] h-[100vh] bg-blueBG text-headline pt-4">
+            <div class="w-[20%] h-auto bg-blueBG text-headline py-4 ">
                 <h1 class="text-2xl text-center"><b class="font-black">BILLIONAIRE</b><br><i class="font-light">DIARY</i></h1>
 
-                <div class="w-full pt-10  flex flex-col justify-between items-center gap-5">
+                <div class="w-full h-fit py-10  flex flex-col justify-between items-center gap-5">
 
                         <!-- button1 -->
                         <button class="w-[80%] py-2 bg-headline text-blueBG font-bold text-lg leading-none flex flex-col items-center justify-center">Add a User<br><i class="font-normal text-base">(Randomly)</i></button>
@@ -50,7 +50,7 @@
                         <!-- button1 -->
                         <button class="w-[80%] py-2 bg-headline text-blueBG font-bold text-lg leading-none flex flex-col items-center justify-center">Sort By Rank<br><i class="font-normal text-base">(Decending)</i></button>
                         <!-- button1 -->
-                        <button class="w-[80%] py-4 bg-headline text-blueBG font-bold text-lg leading-none flex flex-col items-center justify-center">Calculate Entire Wealth</button>
+                        <button id="calculateWealth" class="w-[80%] py-4 bg-headline text-blueBG font-bold text-lg leading-none flex flex-col items-center justify-center">Calculate Entire Wealth</button>
 
                         <hr class="border-[1px] w-[70%]">
 
@@ -77,17 +77,20 @@
                 <div class="w-full bg-headline py-2 px-5">
 
                     <h1 class="text-2xl text-bold">Hello, User!</h1>
-
+                    <div class="w-full grid grid-cols-5 border-b-2 border-blueBG py-2">
+                        <h1 class="text-xl font-bold">Person</h1>
+                        <h1 class="text-xl font-bold">Citizenship</h1>
+                        <h1 class="text-xl font-bold">Industry</h1>
+                        <h1 class="text-xl font-bold">Rank</h1>
+                        <h1 class="text-xl font-bold ">Wealth</h1>
+                    </div>
                     <div id="detailSection" class="w-full">
 
-                        <div class="w-full grid grid-cols-5 border-b-2 border-blueBG py-2">
-                            <h1 class="text-xl font-bold">Person</h1>
-                            <h1 class="text-xl font-bold">Citizenship</h1>
-                            <h1 class="text-xl font-bold">Industry</h1>
-                            <h1 class="text-xl font-bold">Rank</h1>
-                            <h1 class="text-xl font-bold ">Wealth</h1>
-                        </div>
+                        
 
+                    </div>
+                    <div id = "sumSection" class="border-t-2 border-blueBG"">
+                        
                     </div>
                     <div id="pagination" class="border-2 border-blueBG flex flex-wrap h-[70px] gap-2 mt-4 overflow-y-auto overflow-auto"></div>
 
